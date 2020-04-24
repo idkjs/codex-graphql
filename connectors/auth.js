@@ -8,8 +8,7 @@ export const login = async ({ username, password }) => {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw new Error("Error fetching /me");
+    throw new Error(`${error.response.data}`);
   }
 };
 
@@ -21,7 +20,6 @@ export const signup = async ({ username, password }) => {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw new Error("Error fetching /me");
+    throw new Error(`${error.response.data}`);
   }
 };

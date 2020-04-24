@@ -6,7 +6,12 @@ import { resolvers } from "./resolvers/resolvers";
 const typeDefs = importSchema("schema.graphql");
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const server = new ApolloServer({ schema });
+const server = new ApolloServer({
+  schema,
+  context: ({ req }) => ({
+    authToken: req.headers.authorization
+  }),
+});
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
