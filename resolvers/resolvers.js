@@ -1,32 +1,36 @@
 import { AuthenticationError } from "apollo-server";
-import { getUser } from "../connectors/user";
-import { login, signup } from "../connectors/auth";
 
 export const resolvers = {
   Query: {
-    user: (root, args, context) => {
-      return getUser(context.authToken);
+    user: (root, args, { dataSources }) => {
+      return dataSources.userAPI.user();
     },
   },
   Mutation: {
-    login: async (_, { input }, __) => {
+    login: async (_, { input }, { dataSources }) => {
       // Here could be email validation etc.
       if (!input.username || !input.password) {
-        throw new AuthenticationError("Please provide correct credentials");
+        throw new AuthenticationError("Please provide username / password");
       }
       try {
-        const token = await login(input);
         return {
-          token,
+          token: dataSources.authAPI.login(input)
         };
       } catch (error) {
         throw new AuthenticationError(error);
       }
     },
-    signup: (_, { input }, __) => {
-      return {
-        token: signup(input),
-      };
+    signup: async (_, { input }, { dataSources }) => {
+      if (!input.username || !input.password) {
+        throw new AuthenticationError("Please provide username / password");
+      }
+      try {
+        return {
+          token: dataSources.authAPI.signup(input)
+        };
+      } catch (error) {
+        throw new AuthenticationError(error);
+      }
     },
   },
 };
