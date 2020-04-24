@@ -1,0 +1,4 @@
+type Signup {
+    username: String
+    password: String
+}

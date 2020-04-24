@@ -1,0 +1,27 @@
+{
+  "name": "codex",
+  "version": "1.0.0",
+  "description": "GraphQL layer for Codex.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com:Steinarthor/codex-graphql"
+  },
+  "author": "Steinar Þór Oddsson",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.12.0",
+    "axios": "^0.19.2",
+    "graphql": "^15.0.0",
+    "graphql-import": "^1.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5"
+  }
+}

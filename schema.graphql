@@ -1,0 +1,18 @@
+# import User from "./models/user.graphql"
+# import Login from "./models/login.graphql"
+# import Signup from "./models/signup.graphql"
+# import Token from "./models/token.graphql"
+
+input AuthInput {
+    username: String
+    password: String
+}
+
+type Query {
+    user: User
+}
+
+type Mutation {
+    login(input: AuthInput): Token
+    signup(input: AuthInput): Token
+}
