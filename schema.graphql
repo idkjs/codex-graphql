@@ -2,17 +2,25 @@
 # import Login from "./models/login.graphql"
 # import Signup from "./models/signup.graphql"
 # import Token from "./models/token.graphql"
+# import Review from "./models/review.graphql"
 
 input AuthInput {
-    username: String
-    password: String
+  username: String
+  password: String
+}
+
+input ReviewInput {
+  review: String
 }
 
 type Query {
-    user: User
+  user: User
+  review(id: String): Review
+  reviews: [Review]
 }
 
 type Mutation {
-    login(input: AuthInput): Token
-    signup(input: AuthInput): Token
+  login(input: AuthInput): Token
+  signup(input: AuthInput): Token
+  addReview(input: ReviewInput): Review
 }

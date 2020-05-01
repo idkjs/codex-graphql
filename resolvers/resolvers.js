@@ -5,6 +5,12 @@ export const resolvers = {
     user: (root, args, { dataSources }) => {
       return dataSources.userAPI.user();
     },
+    reviews: (_, __, { dataSources }) => {
+      return dataSources.reviewAPI.getReviews();
+    },
+    review: (_, { id }, { dataSources }) => {
+      return dataSources.reviewAPI.getReview(id);
+    },
   },
   Mutation: {
     login: async (_, { input }, { dataSources }) => {
@@ -14,7 +20,7 @@ export const resolvers = {
       }
       try {
         return {
-          token: dataSources.authAPI.login(input)
+          token: dataSources.authAPI.login(input),
         };
       } catch (error) {
         throw new AuthenticationError(error);
@@ -26,10 +32,17 @@ export const resolvers = {
       }
       try {
         return {
-          token: dataSources.authAPI.signup(input)
+          token: dataSources.authAPI.signup(input),
         };
       } catch (error) {
         throw new AuthenticationError(error);
+      }
+    },
+    addReview: async (_, { input }, { dataSources }) => {
+      try {
+        return dataSources.reviewAPI.addReview(input);
+      } catch (error) {
+        throw new Error(error);
       }
     },
   },

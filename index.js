@@ -1,5 +1,6 @@
-import AuthAPI from './datasources/auth';
-import UserAPI from './datasources/user';
+import AuthAPI from "./datasources/auth";
+import UserAPI from "./datasources/user";
+import ReviewAPI from "./datasources/review";
 import { importSchema } from "graphql-import";
 import { makeExecutableSchema } from "graphql-tools";
 import { ApolloServer } from "apollo-server";
@@ -13,14 +14,14 @@ const server = new ApolloServer({
   dataSources: () => {
     return {
       authAPI: new AuthAPI(),
-      userAPI: new UserAPI()
-    }
+      userAPI: new UserAPI(),
+      reviewAPI: new ReviewAPI(),
+    };
   },
   context: ({ req }) => ({
-    token: req.headers.authorization
+    token: req.headers.authorization,
   }),
 });
-
 server.listen().then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
