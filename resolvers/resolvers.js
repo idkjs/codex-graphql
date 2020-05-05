@@ -1,4 +1,4 @@
-import { AuthenticationError } from "apollo-server";
+import { AuthenticationError, UserInputError } from "apollo-server";
 
 export const resolvers = {
   Query: {
@@ -15,15 +15,32 @@ export const resolvers = {
   Mutation: {
     login: async (_, { input }, { dataSources }) => {
       // Here could be email validation etc.
-      if (!input.username || !input.password) {
-        throw new AuthenticationError("Please provide username / password");
+
+      if (!input.username && !input.password) {
+        throw new UserInputError("Please provide username", {
+          invalidArgs: ["Username", "Password"],
+        });
       }
+
+      if (!input.username) {
+        throw new UserInputError("Please provide username", {
+          invalidArgs: "Username",
+        });
+      }
+
+      if (!input.password) {
+        throw new UserInputError("Please provide password", {
+          invalidArgs: "Password",
+        });
+      }
+
       try {
+        const loginResponse = await dataSources.authAPI.login(input);
         return {
-          token: dataSources.authAPI.login(input),
+          token: loginResponse,
         };
       } catch (error) {
-        throw new AuthenticationError(error);
+        throw new AuthenticationError("Invalid Credentials");
       }
     },
     signup: async (_, { input }, { dataSources }) => {
