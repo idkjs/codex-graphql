@@ -55,12 +55,24 @@ export const resolvers = {
         throw new AuthenticationError(error);
       }
     },
+    refresh: async (_, { input }, { dataSources }) => {
+      try {
+        return {
+          token: dataSources.authAPI.refresh(input),
+        };
+      } catch (error) {
+        throw new AuthenticationError(error);
+      }
+    },
     addReview: async (_, { input }, { dataSources }) => {
       try {
         return dataSources.reviewAPI.addReview(input);
       } catch (error) {
         throw new Error(error);
       }
+    },
+    updateUser: async (_, { input }, { dataSources }) => {
+      return dataSources.userAPI.updateUser(input);
     },
   },
 };

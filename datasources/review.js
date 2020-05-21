@@ -7,7 +7,7 @@ export default class ReviewAPI extends RESTDataSource {
   }
 
   willSendRequest(request) {
-    request.headers.set("Authorization", this.context.token);
+    request.headers.set("authorization", this.context.token);
   }
 
   async addReview({ review }) {

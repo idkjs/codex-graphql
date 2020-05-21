@@ -7,12 +7,20 @@ export default class UserAPI extends RESTDataSource {
   }
 
   willSendRequest(request) {
-    request.headers.set("Authorization", this.context.token);
+    request.headers.set("authorization", this.context.token);
   }
 
   async user() {
     try {
       return this.get("user");
+    } catch (error) {
+      throw new Error(`${error.response.data}`);
+    }
+  }
+
+  async updateUser(updateUser) {
+    try {
+      return this.put("update-user", { ...updateUser });
     } catch (error) {
       throw new Error(`${error.response.data}`);
     }
