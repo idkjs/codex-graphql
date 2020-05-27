@@ -10,7 +10,13 @@ input AuthInput {
 }
 
 input ReviewInput {
+  userId: Int
   review: String
+  userName: String
+  bookTitle: String
+  bookSubTitle: String
+  bookAuthor: String
+  bookLanguage: String
 }
 
 input UpdateUserInput {
@@ -26,6 +32,7 @@ type Query {
   user: User
   review(id: String): Review
   reviews: [Review]
+  userReviews(id: ID): [Review]
 }
 
 type Mutation {

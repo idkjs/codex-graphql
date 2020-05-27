@@ -10,12 +10,16 @@ export default class ReviewAPI extends RESTDataSource {
     request.headers.set("authorization", this.context.token);
   }
 
-  async addReview({ review }) {
-    return this.post("add-review", { review });
+  async addReview({ review, userId }) {
+    return this.post("add-review", { review, userId });
   }
 
   async getReview(id) {
     return this.get(`review/${id}`);
+  }
+
+  async getUserReviews(id) {
+    return this.get(`user-reviews/${id}`);
   }
 
   async getReviews() {

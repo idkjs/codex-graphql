@@ -11,6 +11,9 @@ export const resolvers = {
     review: (_, { id }, { dataSources }) => {
       return dataSources.reviewAPI.getReview(id);
     },
+    userReviews: (_, { userId }, { dataSources }) => {
+      return dataSources.reviewAPI.getReviews(userId);
+    },
   },
   Mutation: {
     login: async (_, { input }, { dataSources }) => {

@@ -1,4 +1,11 @@
 type Review {
-  id: ID
+  reviewId: ID
   review: String
+  userId: Int
+  userName: String
+  bookTitle: String
+  bookSubTitle: String
+  bookAuthor: String
+  bookLanguage: String
+  timeStamp: String
 }
