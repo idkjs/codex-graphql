@@ -1,4 +1,5 @@
 const { RESTDataSource } = require("apollo-datasource-rest");
+import cloudinary from "cloudinary";
 
 export default class ReviewAPI extends RESTDataSource {
   constructor() {
@@ -10,8 +11,32 @@ export default class ReviewAPI extends RESTDataSource {
     request.headers.set("authorization", this.context.token);
   }
 
-  async addReview({ review, userId }) {
-    return this.post("add-review", { review, userId });
+  async addReview({
+    review,
+    userId,
+    userName,
+    bookTitle,
+    bookSubTitle,
+    bookAuthor,
+    bookLanguage,
+    image,
+  }) {
+    await cloudinary.v2.uploader.upload(image, (error, result) => {
+      // always expecting to success, need to handle errors.
+
+      const { url: image } = result;
+
+      return this.post("add-review", {
+        review,
+        userId,
+        userName,
+        bookTitle,
+        bookSubTitle,
+        bookAuthor,
+        bookLanguage,
+        image,
+      });
+    });
   }
 
   async getReview(id) {

@@ -1,8 +1,9 @@
 type User {
-    id: ID
-    userName: String
-    email: String
-    firstName: String
-    middleName: String
-    lastName: String
+  id: ID
+  userName: String
+  email: String
+  firstName: String
+  middleName: String
+  lastName: String
+  image: String
 }

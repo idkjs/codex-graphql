@@ -1,4 +1,5 @@
 const { RESTDataSource } = require("apollo-datasource-rest");
+import cloudinary from "cloudinary";
 
 export default class UserAPI extends RESTDataSource {
   constructor() {
@@ -20,7 +21,13 @@ export default class UserAPI extends RESTDataSource {
 
   async updateUser(updateUser) {
     try {
-      return this.put("update-user", { ...updateUser });
+      await cloudinary.v2.uploader.upload(updateUser.image, (error, result) => {
+        // always expecting to success, need to handle errors.
+
+        const { url: image } = result;
+
+        return this.put("update-user", { ...updateUser, image });
+      });
     } catch (error) {
       throw new Error(`${error.response.data}`);
     }

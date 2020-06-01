@@ -8,4 +8,5 @@ type Review {
   bookAuthor: String
   bookLanguage: String
   timeStamp: String
+  image: String
 }

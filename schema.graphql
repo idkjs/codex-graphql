@@ -17,6 +17,7 @@ input ReviewInput {
   bookSubTitle: String
   bookAuthor: String
   bookLanguage: String
+  image: String
 }
 
 input UpdateUserInput {
@@ -26,6 +27,7 @@ input UpdateUserInput {
   firstName: String
   middleName: String
   lastName: String
+  image: String
 }
 
 type Query {
