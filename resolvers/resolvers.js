@@ -1,4 +1,8 @@
-import { AuthenticationError, UserInputError } from "apollo-server";
+import {
+  ApolloError,
+  AuthenticationError,
+  UserInputError,
+} from "apollo-server";
 
 export const resolvers = {
   Query: {
@@ -43,7 +47,9 @@ export const resolvers = {
           token: loginResponse,
         };
       } catch (error) {
-        throw new AuthenticationError("Invalid Credentials");
+        throw new ApolloError("Invalid Credentials", 401, {
+          errorType: "LOGIN",
+        });
       }
     },
     signup: async (_, { input }, { dataSources }) => {
